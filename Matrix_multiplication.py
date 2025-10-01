@@ -3,7 +3,7 @@ By: Nicolas Andrés Bolaños Fernandez / sep-2025
 This code is the implementation of a recursive in-place algorithm to
 solve matrix multiplications (Cormen, 4th edition)
 
-Input: Matrixes A and B, and an initialized matrix of zeros to return the answer -C-, 
+Input: Matrices A and B, and an initialized matrix of zeros to return the answer -C-, 
 as well as the size of the matrixes.
 Output: None (The result is now in C)
 """
@@ -81,8 +81,8 @@ def matrix_multiply_recursive(A, B, C, n):
     return
 
 
-A = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-B = [[1, 0, 0, 1], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+A = [[1, 5, 1, 5], [2, 6, 2, 6], [3, 7,3,7], [4, 8, 4, 8]]
+B = [[1,2, 3,4 ], [5, 6,7, 8], [1,2, 3,4 ], [5, 6,7, 8]]
 C = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
 matrix_multiply_recursive(A, B, C, 4)
