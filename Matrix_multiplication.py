@@ -7,83 +7,43 @@ Input: Matrices A and B, and an initialized matrix of zeros to return the answer
 as well as the size of the matrixes.
 Output: None (The result is now in C)
 """
-def matrix_multiply_recursive(A, B, C, n):
+def matrix_multiply_recursive(A, row_a, col_a, B, row_b, col_b, C, row_c, col_c, n):
     if n == 1: #Base case
-        C[0][0] = C[0][0] + A[0][0] * B[0][0]
+        C[row_c-1][col_c-1] += A[row_a-1][col_a-1] * B[row_b-1][col_b-1]
         return
 
     #Divide
     mid = n//2
 
-    A11 = A[:mid]
-    for  i in range(mid):
-        A11[i] = A11[i][:mid]
+    row_a11, col_a11 = row_a, col_a
+    row_a12, col_a12 = row_a, col_a + mid
+    row_a21, col_a21 = row_a+mid, col_a
+    row_a22, col_a22 = row_a+mid, col_a + mid
 
-    A12 = A[:mid]
-    for  i in range(mid):
-        A12[i] = A12[i][mid:]
+    row_b11, col_b11 = row_b, col_b
+    row_b12, col_b12 = row_b, col_b + mid
+    row_b21, col_b21 = row_b+mid, col_b
+    row_b22, col_b22 = row_b+mid, col_b + mid
 
-    A21 = A[mid:]
-    for  i in range(mid):
-        A21[i] = A21[i][:mid]
+    row_c11, col_c11 = row_c, col_c
+    row_c12, col_c12 = row_c, col_c + mid
+    row_c21, col_c21 = row_c+mid, col_c
+    row_c22, col_c22 = row_c+mid, col_c + mid
 
-    A22 = A[mid:]
-    for  i in range(mid):
-        A22[i] = A22[i][mid:]
 
-    B11 = B[:mid]
-    for  i in range(mid):
-        B11[i] = B11[i][:mid]
-
-    B12 = B[:mid]
-    for  i in range(mid):
-        B12[i] = B12[i][mid:]
-
-    B21 = B[mid:]
-    for  i in range(mid):
-        B21[i] = B21[i][:mid]
-
-    B22 = B[mid:]
-    for  i in range(mid):
-        B22[i] = B22[i][mid:]
-
-    C11 = C[:mid]
-    for  i in range(mid):
-        C11[i] = C11[i][:mid]
-
-    C12 = C[:mid]
-    for  i in range(mid):
-        C12[i] = C12[i][mid:]
-
-    C21 = C[mid:]
-    for  i in range(mid):
-        C21[i] = C21[i][:mid]
-
-    C22 = C[mid:]
-    for  i in range(mid):
-        C22[i] = C22[i][mid:]
-
-    matrix_multiply_recursive(A11, B11, C11, mid)
-    matrix_multiply_recursive(A11, B12, C12, mid)
-    matrix_multiply_recursive(A21, B11, C21, mid)
-    matrix_multiply_recursive(A21, B12, C22, mid)
-    matrix_multiply_recursive(A12, B21, C11, mid)
-    matrix_multiply_recursive(A12, B22, C12, mid)
-    matrix_multiply_recursive(A22, B21, C21, mid)
-    matrix_multiply_recursive(A22, B22, C22, mid)
-
-    for i in range(mid):
-        C[i][:mid] = C11[i]
-        C[i][mid:] = C12[i]
-    for i in range(mid):
-        C[i+mid][:mid] = C21[i]
-        C[i+mid][mid:] = C22[i]
-    return
+    matrix_multiply_recursive(A, row_a11, col_a11, B, row_b11, col_b11, C, row_c11, col_c11, mid)
+    matrix_multiply_recursive(A, row_a11, col_a11, B, row_b12, col_b12, C, row_c12, col_c12, mid)
+    matrix_multiply_recursive(A,row_a21, col_a21, B, row_b11, col_b11, C, row_c21, col_c21, mid)
+    matrix_multiply_recursive(A, row_a21, col_a21, B, row_b12, col_b12, C, row_c22, col_c22, mid)
+    matrix_multiply_recursive(A, row_a12, col_a12, B, row_b21, col_b21, C, row_c11, col_c11, mid)
+    matrix_multiply_recursive(A, row_a12, col_a12, B, row_b22, col_b22, C, row_c12, col_c12, mid)
+    matrix_multiply_recursive(A, row_a22, col_a22, B, row_b21, col_b21, C, row_c21, col_c21, mid)
+    matrix_multiply_recursive(A, row_a22, col_a22, B, row_b22, col_b22, C, row_c22, col_c22, mid)
 
 
 A = [[1, 5, 1, 5], [2, 6, 2, 6], [3, 7,3,7], [4, 8, 4, 8]]
 B = [[1,2, 3,4 ], [5, 6,7, 8], [1,2, 3,4 ], [5, 6,7, 8]]
 C = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
-matrix_multiply_recursive(A, B, C, 4)
+matrix_multiply_recursive(A, 1, 1, B, 1, 1, C, 1, 1, 4)
 print(C)
