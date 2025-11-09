@@ -1,19 +1,19 @@
 """This file defines the class LinkedList as a data structure made up by nodes"""
-from node import Node, Sentinel
+from node import ListNode, Sentinel
 
 class LinkedList:
     def __init__(self):
         self.head = Sentinel()
 
-    def insert(self, value, y: Node) -> None:
+    def insert(self, value, y: ListNode) -> None:
         """
         This function inserts the value specified right after node 'y'
         """
-        new = Node(value, y, y.next)
+        new = ListNode(value, y, y.next)
         y.next.prev = new
         y.next = new
 
-    def delete(self, x:Node) -> None:
+    def delete(self, x:ListNode) -> None:
         """
         This function deletes a node from the linked list
         """
@@ -23,7 +23,7 @@ class LinkedList:
         x.prev.next = x.next
         x.next.prev = x.prev
 
-    def search(self, k) -> Node | None:
+    def search(self, k) -> ListNode | None:
         self.head.set_value(k)
         current = self.head.next
 
