@@ -36,17 +36,17 @@ class BinarySearchTree:
     
     def minimum(self, x: TreeNode):
         while x.left is not None:
-            x = x.left # type: ignore
+            x = x.left 
         return x
     
     def maximum(self, x: TreeNode):
         while x.right is not None:
-            x = x.right # type: ignore
+            x = x.right 
         return x
     
     def successor(self, x: TreeNode):
-        if x.right is None:
-            return self.minimum(x.right) # type: ignore
+        if x.right is not None:
+            return self.minimum(x.right)
         y = x.parent
         while y is not None and x == y.right:
             x = y
@@ -54,8 +54,8 @@ class BinarySearchTree:
         return y
     
     def predecessor(self, x: TreeNode):
-        if x.left is None:
-            return self.maximum(x.left) # type: ignore
+        if x.left is not None:
+            return self.maximum(x.left)
         y = x.parent
         while y is not None and x == y.left:
             x = y
