@@ -1,6 +1,27 @@
 """This file defines classes Node and Sentinel, used to form more complex data strucutres, as the serve as 
 building blocks."""
 
+class RBTNode:
+    """
+    Class used as the base of other complex structures
+    """
+    def __init__(self, value, parent = None):
+
+        self.parent: RBTNode|None = parent
+        self.key = value
+        self.left: RBTNode|None = None
+        self.right: RBTNode|None = None
+        self._color = 'RED'
+
+    def __eq__(self, value: 'RBTNode') -> bool:
+        return self.key == value.key
+
+class RBTNIL (RBTNode):
+    def __init__(self):
+        super().__init__(None, None)
+        self._color = 'BLACK'
+
+
 class TreeNode:
     """
     Class used as the base of other complex structures
